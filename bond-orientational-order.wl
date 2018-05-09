@@ -1,7 +1,6 @@
 func[image_] := 
  CreatePalette[
-  DynamicModule[{segmentImage, showFunc, deleteFalsePts, addPts, 
-    packagedFunction, img = image, ovimg, data},
+  DynamicModule[{segmentImage, showFunc, deleteFalsePts, addPts, packagedFunction, img = image, ovimg, data},
    Grid[{
      {Button["create Voronoi", packagedFunction[data], 
        Method -> "Queued"]} ,
@@ -45,9 +44,8 @@ func[image_] :=
      ovimg = showFunc[img, data];
      
      packagedFunction[pts_?(Length@# > 1 &)] := 
-      Block[{delMesh, vertexcoords, vertexconn, cellNeighCoords, 
-        angles,
-        anglesC, poly, pos, polyOrdered, colourVM, regMemQ},
+      Block[{delMesh, vertexcoords, vertexconn, cellNeighCoords, angles, anglesC, poly,
+      pos, polyOrdered, colourVM, regMemQ},
        delMesh = DelaunayMesh@pts;
        vertexcoords = <|delMesh["VertexCoordinateRules"]|>;
        vertexconn = delMesh["VertexVertexConnectivityRules"];
