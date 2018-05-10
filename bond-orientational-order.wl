@@ -62,10 +62,8 @@ func[image_] :=
        pos = Position[Through[regMemQ[#]], True] & /@ pts;
        polyOrdered = Extract[poly, pos];
        colourVM = 
-        MapThread[{#2, #1} &, {Thread[{EdgeForm[Black], polyOrdered}],
-           anglesC}];
-       CreateDocument[
-        ExpressionCell[Graphics[{colourVM, Point@pts}], Automatic]]
+        MapThread[{#2, #1} &, {Thread[{EdgeForm[Black], polyOrdered}], anglesC}];
+       CreateDocument[ExpressionCell[Graphics[{colourVM, Point@pts}], Automatic]]
        ];
      )
    ],
