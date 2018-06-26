@@ -1,5 +1,10 @@
 # bond-orientational-order
 
+
+
+![status](https://img.shields.io/badge/status-passed-blue.svg)
+![built-and-tested](https://img.shields.io/badge/built%20%26%20tested-mathematica%2011.3-brightgreen.svg)
+
 @Author: Ali Hashmi
 
 An analysis performed for a team studying opto/acousto-microfluidics. The experimenters were interested in detecting and following defects emerging in the local crystaline order over time.
