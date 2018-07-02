@@ -5,8 +5,7 @@ packagedFunctionfiltered[pts_?(Length@# > 1 &)] :=  Block[{delMesh, vertexcoords
    vertexcoords = <| delMesh["VertexCoordinateRules"] |>;
    vertexconn = delMesh["VertexVertexConnectivityRules"];
    cellNeighCoords = With[{vertexpts = vertexcoords},
-     FlattenAt[{Lookup[vertexpts, Keys@#], 
-         Lookup[vertexpts, Values@#]}, {2}] & /@ vertexconn
+     FlattenAt[{Lookup[vertexpts, Keys@#], Lookup[vertexpts, Values@#]}, {2}] & /@ vertexconn
      ];
    angles = (Abs[(Plus @@ Exp[6.0 I #])/Length@#])&/@ Map[Map[x \[Function] VectorAngle[{1, 0}, First[#] - x ], 
         Rest@#] &, cellNeighCoords];
