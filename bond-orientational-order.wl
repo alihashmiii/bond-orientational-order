@@ -27,24 +27,15 @@ func[image_] :=
    Initialization :> (
      segmentImage[img_, circ_: 0.95, thresh_: {10, 50}] := 
       SelectComponents[
-          ColorNegate@
-           DeleteSmallComponents@
-            
-            MorphologicalBinarize@
-             img, (First[thresh] <= #Count < 
-              Last[thresh] && #Circularity > circ) &] // 
-         MorphologicalComponents // 
+          ColorNegate@DeleteSmallComponents@MorphologicalBinarize@img, (First[thresh] <= #Count < 
+              Last[thresh] && #Circularity > circ) &] // MorphologicalComponents // 
         ComponentMeasurements[#, "Centroid"] & // Values;
      data = segmentImage@img;
      
-     showFunc[img_, pts_] := 
-      Show[img, 
-       Graphics[{XYZColor[0, 0, 1, 0.4], Thickness[0.005], 
-         Circle[#, 8] & /@ pts}]];
+     showFunc[img_, pts_] := Show[img, Graphics[{XYZColor[0, 0, 1, 0.4], Thickness[0.005], Circle[#, 8] & /@ pts}]];
      ovimg = showFunc[img, data];
      
-     packagedFunction[pts_?(Length@# > 1 &)] := 
-      Block[{delMesh, vertexcoords, vertexconn, cellNeighCoords, angles, anglesC, poly,
+     packagedFunction[pts_?(Length@# > 1 &)] := Block[{delMesh, vertexcoords, vertexconn, cellNeighCoords, angles, anglesC, poly,
       pos, polyOrdered, colourVM, regMemQ},
        delMesh = DelaunayMesh@pts;
        vertexcoords = <|delMesh["VertexCoordinateRules"]|>;
@@ -61,8 +52,7 @@ func[image_] :=
        regMemQ = RegionMember /@ poly;
        pos = Position[Through[regMemQ[#]], True] & /@ pts;
        polyOrdered = Extract[poly, pos];
-       colourVM = 
-        MapThread[{#2, #1} &, {Thread[{EdgeForm[Black], polyOrdered}], anglesC}];
+       colourVM = MapThread[{#2, #1} &, {Thread[{EdgeForm[Black], polyOrdered}], anglesC}];
        CreateDocument[ExpressionCell[Graphics[{colourVM, Point@pts}], Automatic]]
        ];
      )
