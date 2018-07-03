@@ -16,10 +16,8 @@ func[image_] :=
        Dynamic@If[Head[img] === Image,
          LocatorPane[
           Dynamic@data, 
-          DynamicImage[ovimg, 
-           AppearanceElements -> {"Zoom", "Scrollbars"}], 
-          LocatorAutoCreate -> All,
-          Appearance -> Style["*", 20, Red]]
+          DynamicImage[ovimg, AppearanceElements -> {"Zoom", "Scrollbars"}], 
+          LocatorAutoCreate -> All, Appearance -> Style["*", 20, Red]]
          ]
        ]
       }
@@ -38,11 +36,11 @@ func[image_] :=
      packagedFunction[pts_?(Length@# > 1 &)] := Block[{delMesh, vertexcoords, vertexconn, cellNeighCoords, angles, anglesC, poly,
       pos, polyOrdered, colourVM, regMemQ},
        delMesh = DelaunayMesh@pts;
-       vertexcoords = <|delMesh["VertexCoordinateRules"]|>;
+       vertexcoords = <| delMesh["VertexCoordinateRules"] |>;
        vertexconn = delMesh["VertexVertexConnectivityRules"];
        cellNeighCoords = With[{vertexpts = vertexcoords},
          FlattenAt[{Lookup[vertexpts, Keys@#],Lookup[vertexpts, Values@#]}, {2}] & /@ vertexconn
-         ];
+        ];
        angles = (Abs[(Plus @@ Exp[6.0 I #])/Length@#]) & /@ 
          Map[Map[x \[Function] VectorAngle[{1, 0}, First[#] - x ], Rest@#] &, cellNeighCoords];
        anglesC = ColorData["TemperatureMap", #] & /@ angles;
@@ -59,8 +57,7 @@ func[image_] :=
 
 (* call func *)
 
-With[{imgs = 
-   Import@"C:\\Users\\aliha\\Downloads\\Movie_95.tif" },
+With[{imgs = Import@"C:\\Users\\aliha\\Downloads\\Movie_95.tif" },
  deploy[num_] := func@Part[imgs, num]
  ]
 
