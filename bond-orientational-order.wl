@@ -41,12 +41,10 @@ func[image_] :=
        vertexcoords = <|delMesh["VertexCoordinateRules"]|>;
        vertexconn = delMesh["VertexVertexConnectivityRules"];
        cellNeighCoords = With[{vertexpts = vertexcoords},
-         FlattenAt[{Lookup[vertexpts, Keys@#], 
-             Lookup[vertexpts, Values@#]}, {2}] & /@ vertexconn
+         FlattenAt[{Lookup[vertexpts, Keys@#],Lookup[vertexpts, Values@#]}, {2}] & /@ vertexconn
          ];
        angles = (Abs[(Plus @@ Exp[6.0 I #])/Length@#]) & /@ 
-         Map[Map[x \[Function] VectorAngle[{1, 0}, First[#] - x ], 
-            Rest@#] &, cellNeighCoords];
+         Map[Map[x \[Function] VectorAngle[{1, 0}, First[#] - x ], Rest@#] &, cellNeighCoords];
        anglesC = ColorData["TemperatureMap", #] & /@ angles;
        poly = MeshPrimitives[VoronoiMesh[pts, None], 2];
        regMemQ = RegionMember /@ poly;
